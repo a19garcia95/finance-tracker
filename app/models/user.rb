@@ -29,12 +29,11 @@ class User < ApplicationRecord
   end
 
   def except_current_user(users)
-    users.reject {|user| user.id == self.id}
+    users.reject{|user| user.id == self.id}
   end
 
   def self.search(param)
     return User.none if param.blank?
-
     param.strip!
     param.downcase!
     (first_name_matches(param) + last_name_matches(param) + email_matches(param)).uniq
@@ -53,7 +52,7 @@ class User < ApplicationRecord
   end
 
   def self.matches(field_name, param)
-    where("lower(#{field_name}) like ?", "%#{param}%")
+    where("lower(#{field_name})like?", "%#{param}%")
   end
 
 
